@@ -27,11 +27,13 @@ import type { NavItemType } from "@/components/application/app-navigation/config
 import { SidebarNavigationSlim } from "@/components/untitledui/slimsidebar"
 import "../styles/globals.css"
 import { AcademicCapSolidIcon } from "./icons/heroicons-academic-cap-solid"
+import { Bookmark } from "lucide-react"
+import { useLocation } from "react-router-dom"
 
 const navItemsDualTier: (NavItemType & { icon: FC<{ className?: string }> })[] =
   [
     {
-      label: "Home",
+      label: "Exam Selection",
       href: "/",
       icon: AcademicCapSolidIcon,
       // items: [
@@ -44,9 +46,9 @@ const navItemsDualTier: (NavItemType & { icon: FC<{ className?: string }> })[] =
       // ],
     },
     {
-      label: "Dashboard",
-      href: "/dashboard",
-      icon: BarChartSquare02,
+      label: "Bookmarks",
+      href: "/bookmarks",
+      icon: Bookmark,
       // items: [
       //     { label: "Overview", href: "/dashboard/overview", icon: Grid03 },
       //     { label: "Notifications", href: "/dashboard/notifications", icon: NotificationBox, badge: 10 },
@@ -57,50 +59,55 @@ const navItemsDualTier: (NavItemType & { icon: FC<{ className?: string }> })[] =
       //     { label: "Manage notifications", href: "/dashboard/manage-notifications", icon: Settings03 },
       // ],
     },
-    {
-      label: "Projects",
-      href: "/projects",
-      icon: Rows01,
-      // items: [
-      //     { label: "View all", href: "/projects/all", icon: Rows01 },
-      //     { label: "Personal", href: "/projects/personal", icon: User01 },
-      //     { label: "Team", href: "/projects/team", icon: Users01 },
-      //     { label: "Shared with me", href: "/projects/shared-with-me", icon: UsersPlus },
-      //     { label: "Archive", href: "/projects/archive", icon: Archive },
-      // ],
-    },
-    {
-      label: "Tasks",
-      href: "/tasks",
-      icon: CheckDone01,
-      badge: 10,
-    },
-    {
-      label: "Reporting",
-      href: "/reporting",
-      icon: PieChart03,
-    },
-    {
-      label: "Users",
-      href: "/users",
-      icon: Users01,
-    },
+    // {
+    //   label: "Projects",
+    //   href: "/projects",
+    //   icon: Rows01,
+    //   // items: [
+    //   //     { label: "View all", href: "/projects/all", icon: Rows01 },
+    //   //     { label: "Personal", href: "/projects/personal", icon: User01 },
+    //   //     { label: "Team", href: "/projects/team", icon: Users01 },
+    //   //     { label: "Shared with me", href: "/projects/shared-with-me", icon: UsersPlus },
+    //   //     { label: "Archive", href: "/projects/archive", icon: Archive },
+    //   // ],
+    // },
+    // {
+    //   label: "Tasks",
+    //   href: "/tasks",
+    //   icon: CheckDone01,
+    //   badge: 10,
+    // },
+    // {
+    //   label: "Reporting",
+    //   href: "/reporting",
+    //   icon: PieChart03,
+    // },
+    // {
+    //   label: "Users",
+    //   href: "/users",
+    //   icon: Users01,
+    // },
   ]
 
-export const SidebarNavigationSlimDemo = () => (
-  <SidebarNavigationSlim
-    items={navItemsDualTier}
-    footerItems={[
-      {
-        label: "Support",
-        href: "/support",
-        icon: LifeBuoy01,
-      },
-      {
-        label: "Settings",
-        href: "/settings",
-        icon: Settings01,
-      },
-    ]}
-  />
-)
+export const SidebarNavigationSlimDemo = () => {
+  const location = useLocation()
+
+  return (
+    <SidebarNavigationSlim
+      activeUrl={location.pathname}
+      items={navItemsDualTier}
+      footerItems={[
+        {
+          label: "Support",
+          href: "/support",
+          icon: LifeBuoy01,
+        },
+        {
+          label: "Settings",
+          href: "/settings",
+          icon: Settings01,
+        },
+      ]}
+    />
+  )
+}

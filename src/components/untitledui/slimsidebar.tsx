@@ -42,9 +42,7 @@ export const SidebarNavigationSlim = ({
   hideRightBorder,
 }: SidebarNavigationSlimProps) => {
   const activeItem = [...items, ...footerItems].find(
-    (item) =>
-      item.href === activeUrl ||
-      item.items?.some((subItem) => subItem.href === activeUrl)
+    (item) => item.href === activeUrl
   )
   const [currentItem, setCurrentItem] = useState(activeItem || items[1])
   const [isHovering, setIsHovering] = useState(false)
@@ -204,7 +202,7 @@ export const SidebarNavigationSlim = ({
                 </li>
               ))}
             </ul>
-            <div className="sticky bottom-0 mt-auto flex justify-between border-t border-secondary bg-primary px-2 py-5">
+            {/* <div className="sticky bottom-0 mt-auto flex justify-between border-t border-secondary bg-primary px-2 py-5">
               <div>
                 <p className="text-sm font-semibold text-primary">
                   Olivia Rhye
@@ -219,7 +217,7 @@ export const SidebarNavigationSlim = ({
                   icon={LogOut01}
                 />
               </div>
-            </div>
+            </div> */}
           </div>
         </motion.div>
       )}
@@ -248,14 +246,27 @@ export const SidebarNavigationSlim = ({
 
       {/* Mobile header navigation */}
       <MobileNavigationHeader>
-        <aside className="group flex h-full max-h-full w-full max-w-full flex-col justify-between overflow-y-auto bg-primary pt-4">
+        <aside className="group flex h-full max-h-full w-full max-w-full flex-col justify-between overflow-y-auto bg-[#FBF7F5] pt-4">
           <div className="px-4">
-            <UntitledLogo className="h-8" />
+            <a href="https://elevatelb.com">
+              <svg
+                className="size-8"
+                xmlns="http://www.w3.org/2000/svg"
+                width="56.467"
+                height="36.521"
+                viewBox="0 0 56.467 36.521"
+              >
+                <path
+                  d="M56.455,5.766a.821.821,0,0,0-.06-.184,1.067,1.067,0,0,0-.045-.114.8.8,0,0,0-.076-.1.8.8,0,0,0-.148-.158l0,0a.865.865,0,0,0-.569-.188h-.006l-10.98.627a.892.892,0,0,0-.834,1l.3,2.383a.893.893,0,0,0,1.127.747l4.976-1.406c-.479.344-.892.641-1.216.878Q33.468,20.279,24.709,24.659T8.466,29.039a1.854,1.854,0,0,1-1.181-2.017A8.9,8.9,0,0,1,8.86,22.79q1.572-2.607,2.264-2.609a1.766,1.766,0,0,1,1.083.3,2.57,2.57,0,0,0,2.412,1.476q1.624,0,6.693-2.51a44.517,44.517,0,0,0,9.7-6.6q4.625-4.083,4.626-7.333a5.186,5.186,0,0,0-2.018-3.642A6.342,6.342,0,0,0,29.238,0Q23.921,0,17.031,4.184A43.789,43.789,0,0,0,5.071,14.913Q0,21.463,0,27.268q0,9.253,7.58,9.253,6.4,0,16.537-5.463A127.41,127.41,0,0,0,42.083,19.49q6.105-4.759,10.435-8.8l-2.151,4.93a.892.892,0,0,0,.519,1.2l2.263.806a.893.893,0,0,0,1.175-.67L56.446,6.117a.948.948,0,0,0,.009-.351m-36.57,4.521q6.1-5.265,8.663-5.265c.393,0,.591.163.591.492q0,1.77-6.449,6.594t-8.613,4.824c-.2,0-.295-.066-.295-.2q0-1.18,6.1-6.448"
+                  fill="currentColor"
+                />
+              </svg>
+            </a>
           </div>
 
-          <NavList items={items} />
+          <NavList items={items} className="bg-[#FBF7F5]" />
 
-          <div className="mt-auto flex flex-col gap-5 px-2 py-4">
+          <div className="mt-auto flex flex-col gap-5 bg-[#FBF7F5] px-2 py-4">
             <div className="flex flex-col gap-2">
               <NavItemBase
                 current={activeUrl === "/support"}
@@ -275,7 +286,7 @@ export const SidebarNavigationSlim = ({
               </NavItemBase>
             </div>
 
-            <div className="relative flex items-center gap-3 border-t border-secondary pt-6 pr-8 pl-2">
+            {/* <div className="relative flex items-center gap-3 border-t border-secondary pt-6 pr-8 pl-2">
               <AvatarLabelGroup
                 status="online"
                 size="md"
@@ -294,7 +305,7 @@ export const SidebarNavigationSlim = ({
                   className="p-1.5!"
                 />
               </div>
-            </div>
+            </div> */}
           </div>
         </aside>
       </MobileNavigationHeader>

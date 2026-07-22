@@ -23,16 +23,21 @@ export default function InteractiveJump({
   activePage,
   setActivePage,
   setChosOpt,
+  isBmPressed,
 }: InteractiveJumpProps) {
   const [isEditing, setIsEditing] = React.useState(false)
   const [inputValue, setInputValue] = React.useState(activePage.toString())
 
   const handlePageChange = (page: number) => {
-    const newPage = Math.max(1, Math.min(totalPages, page))
+    const newPage = Math.max(0, Math.min(totalPages - 1, page))
+    if (activePage == newPage) {
+      return
+    }
     setActivePage(newPage)
     setInputValue(newPage.toString())
     setIsEditing(false)
     setChosOpt(null)
+    isBmPressed(false)
   }
 
   const handleInputSubmit = (e: React.FormEvent) => {

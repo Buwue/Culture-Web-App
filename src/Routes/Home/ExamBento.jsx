@@ -23,13 +23,14 @@ const bordColors = [
   "#4F5D6E",
 ]
 
-export default function ExamBento({ examNames, isExamMode }) {
+export default function ExamBento({ examNames, isExamMode, examIds }) {
   const [exams, setExams] = useState([])
   useEffect(() => {
-    let addedColors = examNames.map((examName) => {
+    let addedColors = examNames.map((examName, i) => {
       let index = Math.floor(Math.random() * colors.length)
       return {
-        name: examName.Name,
+        id: examIds[i],
+        name: examName,
         color: colors[index],
         bordColor: bordColors[index],
       }
@@ -42,15 +43,15 @@ export default function ExamBento({ examNames, isExamMode }) {
       {exams.map((exam, index) => (
         <Link
           key={index}
-          to={`/exam/${exam.name}`}
-          state={{ isExamMode: isExamMode }}
+          to={`/exam/${exam.id}`}
+          state={{ isExamMode: isExamMode, examName: exam.name }}
           style={{
             boxShadow: `0 0 0 2px ${exam.bordColor}, 0 4px 14px 0 ${exam.color}80`,
             backgroundColor: exam.color,
           }}
-          className={`group relative flex overflow-hidden rounded-2xl shadow-lg transition-all duration-300 hover:scale-[1.02]`}
+          className={`group relative flex h-[10dvh] w-full overflow-hidden rounded-2xl shadow-lg transition-all duration-300 hover:scale-[1.02] lg:h-[14dvh]`}
         >
-          <div className="relative flex w-full flex-row items-center p-6 text-white">
+          <div className="relative flex w-full flex-row items-center p-3 text-white">
             <CircularProgress
               size="50"
               value="10"

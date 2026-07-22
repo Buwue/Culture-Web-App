@@ -6,14 +6,14 @@ import { BrowserRouter } from "react-router-dom"
 import App from "./App"
 import globals from "globals"
 
-const queryClient = new QueryClient()
+export const queryClient = new QueryClient()
 
 createRoot(document.getElementById("root")).render(
-    <StrictMode>
-        <QueryClientProvider client={queryClient}>
-            <BrowserRouter>
-                <App />
-            </BrowserRouter>
-        </QueryClientProvider>
-    </StrictMode>
+  <StrictMode>
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </QueryClientProvider>
+  </StrictMode>
 )
