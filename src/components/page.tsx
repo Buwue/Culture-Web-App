@@ -97,13 +97,9 @@ export const SidebarNavigationSlimDemo = () => {
       activeUrl={location.pathname}
       items={navItemsDualTier}
       footerItems={[
+    
         {
-          label: "Support",
-          href: "/support",
-          icon: LifeBuoy01,
-        },
-        {
-          label: "Settings",
+          label: "Sign Out",
           href: "/settings",
           icon: Settings01,
         },
