@@ -168,24 +168,27 @@ function Window() {
                     bmPressed={bmPressed}
                     handleBookMarking={handleBookMarking}
                   />
-                  <CardFooter className="relative h-full flex-col gap-4 bg-[#FBF7F5] pt-6 pr-8 pl-8">
+                  <CardFooter className="relative h-full flex-col gap-4 overflow-hidden bg-[#FBF7F5]">
                     <AcademicCapIcon
                       className="pointer-events-none absolute inset-0 z-0 m-auto size-[300px] opacity-20 lg:size-[600px]"
                       size="300 lg:600"
+
                       color="#f79a6c"
                     />
-                    <LowerCard
-                      allQuestions={allQuestions}
-                      currNum={currNum}
-                      chosOpt={chosOpt}
-                      letterIcons={letterIcons}
-                      handleSelection={handleSelection}
-                      setChosOpt={setChosOpt}
-                      userData={userData}
-                      isBmPressed={isBmPressed}
-                      isExamMode={isExamMode}
-                      examDataRef={examDataRef}
-                    />
+                    <div className="relative z-10 flex h-full min-h-0 w-full flex-col gap-4 overflow-x-hidden overflow-y-auto py-2 pr-8 pl-8">
+                      <LowerCard
+                        allQuestions={allQuestions}
+                        currNum={currNum}
+                        chosOpt={chosOpt}
+                        letterIcons={letterIcons}
+                        handleSelection={handleSelection}
+                        setChosOpt={setChosOpt}
+                        userData={userData}
+                        isBmPressed={isBmPressed}
+                        isExamMode={isExamMode}
+                        examDataRef={examDataRef}
+                      />
+                    </div>
                   </CardFooter>
                 </Card>
               </div>
