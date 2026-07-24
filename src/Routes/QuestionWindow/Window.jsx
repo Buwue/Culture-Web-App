@@ -195,7 +195,7 @@ function Window() {
                 <SmoothButton
                   disabled={isExamMode}
                   variant="outline"
-                  className="min-w-0 justify-start text-sm font-medium text-[#202153] hover:text-foreground aria-expanded:text-foreground"
+                  className="min-w-0 text-center text-sm font-medium text-[#202153] hover:text-foreground aria-expanded:text-foreground"
                   onClick={() => {
                     navigate("/")
                   }}
@@ -212,7 +212,7 @@ function Window() {
                 />
                 <SmoothButton
                   variant="outline"
-                  className={`min-w-0 justify-end text-sm font-medium text-[#202153] hover:text-foreground aria-expanded:text-foreground ${isExamMode ? "" : "hidden"}`}
+                  className={`min-w-0 text-center text-sm font-medium text-[#202153] hover:text-foreground aria-expanded:text-foreground ${isExamMode ? "" : "hidden"}`}
                   onClick={() => {
                     FinishExams()
                   }}

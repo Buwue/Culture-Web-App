@@ -118,8 +118,8 @@ export default function ExamBento({
             <AlertDialogContent
               className={`ring ${isExamMode ? "ring-blue-500" : "ring-green-500"}`}
             >
-              <AlertDialogHeader className="bg-[#FBF7F5]">
-                <AlertDialogTitle className="bg-[#FBF7F5] text-center">
+              <AlertDialogHeader className="">
+                <AlertDialogTitle className="text-center">
                   You're about to enter{" "}
                   <span
                     className={`underline underline-offset-3 decoration-[${exam.colorBord}]`}
