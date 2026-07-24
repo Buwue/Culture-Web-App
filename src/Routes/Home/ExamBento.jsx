@@ -155,11 +155,11 @@ export default function ExamBento({
                       : `bg-green-600 text-white hover:bg-green-700`
                   }
                 >
-                  {" "}
                   <Link
                     key={index}
                     to={`/exam/${exam.id}`}
                     state={{ isExamMode: isExamMode, examName: exam.name }}
+                    className="flex h-full w-full items-center justify-center"
                   >
                     Continue
                   </Link>
