@@ -153,11 +153,11 @@ function ExamSelection() {
                     </div>
                   </CardHeader>
                   <CardFooter className="relative h-[100%] w-full gap-3.5 bg-[#FBF7F5]">
-                    {/* <AcademicCapSolidIcon
+                    <AcademicCapSolidIcon
                       className="pointer-events-none absolute inset-0 z-0 m-auto size-[300px] opacity-20 lg:size-[600px]"
                       size="300 lg:600"
                       color="#f79a6c"
-                    /> */}
+                    />
                     <div className="z-10 flex h-[100%] min-h-[100%] w-full flex-col overflow-auto pb-20 [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-button]:h-0 [&::-webkit-scrollbar-button]:w-0 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-stone-300 dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500 [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-track]:bg-stone-100 dark:[&::-webkit-scrollbar-track]:bg-neutral-700">
                       <ExamBento
                         examNames={examNames}
