@@ -91,13 +91,11 @@ const navItemsDualTier: (NavItemType & { icon: FC<{ className?: string }> })[] =
 
 export const SidebarNavigationSlimDemo = () => {
   const location = useLocation()
-
   return (
     <SidebarNavigationSlim
       activeUrl={location.pathname}
       items={navItemsDualTier}
       footerItems={[
-    
         {
           label: "Sign Out",
           href: "/settings",

@@ -44,11 +44,11 @@ export const SidebarNavigationSlim = ({
   const activeItem = [...items, ...footerItems].find(
     (item) => item.href === activeUrl
   )
-  const [currentItem, setCurrentItem] = useState(activeItem || items[1])
+  const [currentItem, setCurrentItem] = useState(activeItem || {})
   const [isHovering, setIsHovering] = useState(false)
 
   const isSecondarySidebarVisible =
-    isHovering && Boolean(currentItem.items?.length)
+    isHovering && Boolean(currentItem?.items?.length)
 
   const MAIN_SIDEBAR_WIDTH = 68
   const SECONDARY_SIDEBAR_WIDTH = 268
@@ -90,7 +90,8 @@ export const SidebarNavigationSlim = ({
             <li key={item.label}>
               <NavButton
                 // size="md"
-                current={currentItem.href === item.href}
+                className=""
+                current={currentItem?.href === item.href}
                 href={item.href}
                 label={item.label || ""}
                 icon={item.icon}
@@ -105,7 +106,7 @@ export const SidebarNavigationSlim = ({
               {footerItems.map((item) => (
                 <li key={item.label}>
                   <NavButton
-                    current={currentItem.href === item.href}
+                    current={currentItem?.href === item.href}
                     label={item.label || ""}
                     href={item.href}
                     icon={item.icon}
@@ -116,8 +117,8 @@ export const SidebarNavigationSlim = ({
             </ul>
           )}
 
-          <AriaDialogTrigger>
-            {/* <AriaButton
+          {/* <AriaDialogTrigger>
+            <AriaButton
               className={({ isPressed, isFocused }) =>
                 cx(
                   "group relative inline-flex rounded-full",
@@ -132,7 +133,7 @@ export const SidebarNavigationSlim = ({
                 size="md"
                 alt="Olivia Rhye"
               />
-            </AriaButton> */}
+            </AriaButton>
             <AriaPopover
               placement="right bottom"
               offset={8}
@@ -149,7 +150,7 @@ export const SidebarNavigationSlim = ({
             >
               <NavAccountMenu />
             </AriaPopover>
-          </AriaDialogTrigger>
+          </AriaDialogTrigger> */}
         </div>
       </div>
     </aside>
@@ -185,10 +186,10 @@ export const SidebarNavigationSlim = ({
             className="flex h-full flex-col px-4 pt-6"
           >
             <h3 className="text-brand-secondary text-sm font-semibold">
-              {currentItem.label}
+              {currentItem?.label}
             </h3>
             <ul className="py-2">
-              {currentItem.items?.map((item) => (
+              {currentItem?.items?.map((item) => (
                 <li key={item.label} className="py-0.5">
                   <NavItemBase
                     current={activeUrl === item.href}

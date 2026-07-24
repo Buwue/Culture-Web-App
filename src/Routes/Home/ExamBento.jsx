@@ -23,7 +23,33 @@ const bordColors = [
   "#4F5D6E",
 ]
 
-export default function ExamBento({ examNames, isExamMode, examIds }) {
+const examColors = [
+  "#1B1A43",
+  "#CB7F59",
+  "#C44344",
+  "#75AEBC",
+  "#688F75",
+  "#A08FAD",
+  "#B79A64",
+  "#727F8C",
+]
+const examBordColors = [
+  "#12122D",
+  "#84563B",
+  "#842D2F",
+  "#4B717C",
+  "#325740",
+  "#715A81",
+  "#907132",
+  "#404C5A",
+]
+
+export default function ExamBento({
+  examNames,
+  isExamMode,
+  examIds,
+  examData,
+}) {
   const [exams, setExams] = useState([])
   useEffect(() => {
     let addedColors = examNames.map((examName, i) => {
@@ -54,7 +80,7 @@ export default function ExamBento({ examNames, isExamMode, examIds }) {
           <div className="relative flex w-full flex-row items-center p-3 text-white">
             <CircularProgress
               size="50"
-              value="10"
+              value={(examData[exam.id] * 100) / 20}
               strokeWidth="5"
               progressClassName="stroke-blue-500"
             />

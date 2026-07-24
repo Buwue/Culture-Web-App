@@ -44,7 +44,6 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import { cn } from "../../lib/utils"
-import { useHover } from "react-aria"
 import { InfoIcon } from "../../components/icons/akar-icons-info"
 import Background1 from "../../components/Background1"
 import WindowHeader from "./WindowHeader"
@@ -148,9 +147,12 @@ function Window() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
           >
-            <Background1 />
+            <Background1 isExamMode={isExamMode} />
 
-            <SidebarNavigationSlimDemo className="bg-[#FBF7F5]" />
+            <SidebarNavigationSlimDemo
+              disabled={true}
+              className="bg-[#FBF7F5]"
+            />
             <div className="flex h-dvh w-dvw flex-col items-center justify-center gap-2">
               <WindowHeader
                 examName={examName}
@@ -163,6 +165,7 @@ function Window() {
               >
                 <Card className="h-[70dvh] w-[90dvw] lg:h-110 lg:w-[80dvw]">
                   <UpperCard
+                    isExamMode={isExamMode}
                     allQuestions={allQuestions}
                     currNum={currNum}
                     bmPressed={bmPressed}
@@ -171,7 +174,7 @@ function Window() {
                   <CardFooter className="relative h-full flex-col gap-4 overflow-hidden bg-[#FBF7F5]">
                     <AcademicCapIcon
                       className="pointer-events-none absolute inset-0 z-0 m-auto size-[300px] opacity-20 lg:size-[600px]"
-                      size="300 lg:600"
+                      size="300"
 
                       color="#f79a6c"
                     />
@@ -192,7 +195,17 @@ function Window() {
                   </CardFooter>
                 </Card>
               </div>
-              <div className="flex w-full flex-col items-center gap-2">
+              <div className="flex w-[90dvw] flex-row items-center gap-2 lg:w-[80dvw]">
+                <SmoothButton
+                  disabled={isExamMode}
+                  variant="outline"
+                  className="text-[#202153 min-w-0 justify-start text-sm font-medium whitespace-nowrap hover:text-foreground aria-expanded:text-foreground"
+                  onClick={() => {
+                    navigate("/")
+                  }}
+                >
+                  Retour
+                </SmoothButton>
                 <InteractiveJump
                   className={`text-base`}
                   totalPages={Object.keys(allQuestions).length}
@@ -201,6 +214,15 @@ function Window() {
                   setChosOpt={setChosOpt}
                   isBmPressed={isBmPressed}
                 />
+                <SmoothButton
+                  variant="outline"
+                  className={`min-w-0 justify-end text-sm font-medium whitespace-nowrap text-[#202153] hover:text-foreground aria-expanded:text-foreground ${isExamMode ? "" : "hidden"}`}
+                  onClick={() => {
+                    FinishExams()
+                  }}
+                >
+                  End
+                </SmoothButton>
               </div>
             </div>
           </motion.div>

@@ -41,6 +41,7 @@ function ExamSelection() {
   const navigate = useNavigate()
   const [isExamMode, setIsExamMode] = useState(false)
   const { userData } = useSession()
+
   const {
     data: { examNames, examIds } = {},
     isLoading,
@@ -66,6 +67,7 @@ function ExamSelection() {
       )
       return { examId: examId, examName: `Examen #${examNames.length}` }
     },
+
     onError: (err) => console.log(err),
     onSuccess: async ({ examId, examName }) => {
       userData.examData[examId] = 0
@@ -102,46 +104,63 @@ function ExamSelection() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
           >
+            {isExamMode && (
+              <motion.div
+                key="exam-overlay"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.4 }}
+                className="pointer-events-none fixed inset-0 z-[100] animate-pulse bg-[radial-gradient(ellipse_at_center,transparent_45%,rgba(43,127,255,0.35)_100%)]"
+              />
+            )}
             <SidebarNavigationSlimDemo className="bg-[#FBF7F5]" />
-            <Background1 />
+            <Background1 isExamMode={isExamMode} />
             <div className="relative flex h-dvh min-h-0 w-dvw flex-col items-center justify-center overflow-hidden">
               <div
                 className={`relative h-[80dvh] w-[90dvw] sm:h-[50dvh] sm:w-[90dvw] md:h-[0.5dvh] lg:h-150 lg:w-[80dvw]`}
               >
-                <Card className="h-full sm:h-[80dvh] sm:w-[90dvw] md:h-[0.5dvh] lg:h-150 lg:w-[80dvw]">
+                <Card
+                  className={`h-full sm:h-[80dvh] sm:w-[90dvw] md:h-[0.5dvh] lg:h-150 lg:w-[80dvw]`}
+                >
                   <CardHeader className="grid grid-cols-2 grid-rows-1 items-center lg:grid-cols-3">
                     <div className="hidden justify-start lg:flex">
                       <SmoothButton
                         variant="outline"
-                        className="justify-start text-base leading-tight"
+                        className="h-full justify-start text-sm leading-tight lg:text-base"
                         onClick={handleRandomize}
                       >
                         Randomize
                       </SmoothButton>
                     </div>
                     <div className="flex justify-center">
-                      <CardTitle className="text-2xl font-bold text-[#f79a6c]">
-                        Entrainement
-                        <p className="text-sm text-neutral-500">
+                      <CardTitle
+                        className={`text-center text-2xl font-bold text-[#f79a6c] ${isExamMode ? "text-blue-500" : ""}`}
+                      >
+                        <motion.span
+                          key={isExamMode ? "examen" : "entrainement"}
+                          initial={{ opacity: 0, y: -8 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: 8 }}
+                          transition={{ duration: 0.25 }}
+                          className="inline-block"
+                        >
+                          {isExamMode ? "Examen" : "Entrainement"}
+                        </motion.span>
+                        <p className="text-sm text-neutral-500 transition duration-400">
                           {examNames.length} examens disponibles
                         </p>
                       </CardTitle>
                     </div>
                     <div className="flex items-center justify-end">
                       <div className="flex flex-col items-center justify-center gap-2">
-                        <Switch
-                          checked={isExamMode}
-                          className="h-7 w-12 data-[state=checked]:bg-rose-500"
-                          icon={
-                            isExamMode ? (
-                              <LockIcon className="h-4 w-4" />
-                            ) : (
-                              <LockOpenIcon className="h-4 w-4" />
-                            )
-                          }
-                          onCheckedChange={setIsExamMode}
-                          thumbClassName="h-6 w-6 data-[state=checked]:translate-x-5"
-                        />
+                        <SmoothButton
+                          variant="outline"
+                          className={`h-full justify-start text-sm leading-tight text-black transition duration-300 lg:text-base ${isExamMode ? "text-blue-500 inset-shadow-sm shadow-blue-500" : ""}`}
+                          onClick={() => setIsExamMode((prev) => !prev)}
+                        >
+                          Exam Mode
+                        </SmoothButton>
                         <SmoothButton
                           variant="outline"
                           className="h-full justify-start text-sm leading-tight lg:hidden lg:text-base"
@@ -155,7 +174,6 @@ function ExamSelection() {
                   <CardFooter className="relative h-[100%] w-full gap-3.5 bg-[#FBF7F5]">
                     <AcademicCapSolidIcon
                       className="pointer-events-none absolute inset-0 z-0 m-auto size-[300px] opacity-20 lg:size-[600px]"
-                      size="300 lg:600"
                       color="#f79a6c"
                     />
                     <div className="z-10 flex h-[100%] min-h-[100%] w-full flex-col overflow-auto pb-20 [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-button]:h-0 [&::-webkit-scrollbar-button]:w-0 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-stone-300 dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500 [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-track]:bg-stone-100 dark:[&::-webkit-scrollbar-track]:bg-neutral-700">
@@ -163,6 +181,7 @@ function ExamSelection() {
                         examNames={examNames}
                         isExamMode={isExamMode}
                         examIds={examIds}
+                        examData={userData.examData}
                       />
                     </div>
                   </CardFooter>

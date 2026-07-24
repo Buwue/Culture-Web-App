@@ -1,7 +1,7 @@
 import React from "react"
 import DotField from "@/components/DotField"
 
-function Background1() {
+function Background1({ isExamMode }) {
   return (
     <div className="absolute inset-0 -z-10">
       <div
@@ -17,13 +17,13 @@ function Background1() {
           bulgeStrength={5}
           glowRadius={5}
           sparkle={false}
-          waveAmplitude={1}
+          waveAmplitude={isExamMode ? 5 : 1}
           cursorRadius={100}
           cursorForce={30}
           bulgeOnly
-          gradientFrom="#f79a6c"
+          gradientFrom={isExamMode ? "#2b7fff" : "#f76c6c"}
           gradientTo="#FBF7F5"
-          glowColor="#f79a6c"
+          glowColor={isExamMode ? "#2b7fff" : "#f76c6c"}
         />
       </div>
     </div>

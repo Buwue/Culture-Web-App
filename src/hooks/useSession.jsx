@@ -17,8 +17,6 @@ const useSession = () => {
     enabled: !isLoadingS && !!session?.session?.user?.id,
   })
 
-  console.log(session)
-
   useEffect(() => {
     const {
       data: { subscription },
@@ -28,6 +26,7 @@ const useSession = () => {
 
     return () => subscription.unsubscribe()
   }, [])
+
   return {
     userId: session?.session?.user?.id ?? null,
     loading: isLoadingS || isLoadingD,
