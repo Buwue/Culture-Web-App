@@ -168,7 +168,7 @@ function Window() {
                     bmPressed={bmPressed}
                     handleBookMarking={handleBookMarking}
                   />
-                  <CardFooter className="relative h-full flex-col gap-4 overflow-hidden bg-[#FBF7F5] pt-6 pr-8 pl-8">
+                  <CardFooter className="relative h-full flex-col gap-4 bg-[#FBF7F5] pt-6 pr-8 pl-8">
                     <AcademicCapIcon
                       className="pointer-events-none absolute inset-0 z-0 m-auto size-[300px] opacity-20 lg:size-[600px]"
                       size="300 lg:600"
