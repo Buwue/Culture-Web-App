@@ -30,3 +30,14 @@ export const signOut = async () => {
     throw new Error(error.message)
   }
 }
+
+export const signInWithGoogle = async () => {
+  const { data, error } = supabase.auth.signInWithOAuth({
+    provider: "google",
+  })
+
+  if (error) {
+    throw new Error(error.message)
+  }
+  return data
+}

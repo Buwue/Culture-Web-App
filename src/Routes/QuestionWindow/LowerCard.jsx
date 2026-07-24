@@ -4,12 +4,12 @@ import { AcademicCapIcon } from "../../components/icons/heroicons-academic-cap"
 import { Bubble } from "../../components/ui/bubble"
 import SmoothButton from "../../components/smoothui/smooth-button"
 import { cn } from "../../lib/utils"
+import { getOptColor } from "../../lib/utils/helpers"
 
 function LowerCard({
   allQuestions,
   currNum,
   chosOpt,
-  getOptColor,
   letterIcons,
   handleSelection,
   setChosOpt,
@@ -32,13 +32,9 @@ function LowerCard({
       isBmPressed(true)
     }
   }, [currNum])
+
   return (
     <>
-      <AcademicCapIcon
-        className="absolute opacity-20"
-        size="400"
-        color="#f79a6c"
-      />
       {allQuestions[currNum].options.map((elt, index) => (
         <Bubble
           className="h-full w-full max-w-[100%] justify-start"
@@ -60,7 +56,8 @@ function LowerCard({
                 chosOpt,
                 index,
                 allQuestions[currNum].correct,
-                isExamMode
+                !isExamMode,
+                true
               )
             )}
             onClick={() => handleSelection(index)}

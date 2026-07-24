@@ -45,7 +45,6 @@ import {
 } from "@/components/ui/popover"
 import { cn } from "../../lib/utils"
 import { useHover } from "react-aria"
-import { TextMorph } from "../../../components/motion-primitives/text-morph"
 import { InfoIcon } from "../../components/icons/akar-icons-info"
 import Background1 from "../../components/Background1"
 import WindowHeader from "./WindowHeader"
@@ -59,29 +58,6 @@ const letterIcons = {
   2: <CircleLetterCIcon className="size-15 lg:size-32" />,
   3: <CircleLetterDIcon className="size-15 lg:size-32" />,
   4: <CircleLetterEIcon className="size-15 lg:size-32" />,
-}
-
-const getOptColor = (chosOpt, numOpt, corrOpt, isExamMode) => {
-  if (chosOpt == null) {
-    return "text-[#202153]"
-  }
-
-  if (!isExamMode) {
-    if (numOpt == corrOpt) {
-      return "text-green-500 pointer-events-none cursor-not-allowed"
-    }
-
-    if (chosOpt == numOpt) {
-      return "text-red-500 pointer-events-none cursor-not-allowed"
-    }
-
-    return "text-neutral-400 opacity-80 pointer-events-none cursor-not-allowed"
-  } else {
-    if (numOpt == chosOpt) {
-      return "text-amber-500"
-    }
-    return "text-[#202153]"
-  }
 }
 
 function Window() {
@@ -108,20 +84,22 @@ function Window() {
 
   const handleSelection = (option) => {
     setChosOpt(option)
-    userData.questsAnswered[allQuestions[currNum].id] = option
-    mutate()
-
     if (isExamMode) {
       examDataRef.current[currNum] = option
+    } else {
+      userData.questsAnswered[allQuestions[currNum].id] = option
+      mutate()
     }
   }
 
   const FinishExams = () => {
     navigate(`/examresults/`, {
+      replace: true,
       state: {
         answer: examDataRef.current,
         allQuestions: allQuestions,
         examTimer: examTimer,
+        examId: examId,
       },
     })
   }
@@ -191,11 +169,15 @@ function Window() {
                     handleBookMarking={handleBookMarking}
                   />
                   <CardFooter className="relative h-full flex-col gap-4 overflow-hidden bg-[#FBF7F5] pt-6 pr-8 pl-8">
+                    <AcademicCapIcon
+                      className="absolute opacity-20"
+                      size="900"
+                      color="#f79a6c"
+                    />
                     <LowerCard
                       allQuestions={allQuestions}
                       currNum={currNum}
                       chosOpt={chosOpt}
-                      getOptColor={getOptColor}
                       letterIcons={letterIcons}
                       handleSelection={handleSelection}
                       setChosOpt={setChosOpt}
@@ -211,7 +193,7 @@ function Window() {
                 <InteractiveJump
                   className={`text-base`}
                   totalPages={Object.keys(allQuestions).length}
-                  activePage={currNum}
+                  activePage={currNum + 1}
                   setActivePage={setCurrNum}
                   setChosOpt={setChosOpt}
                   isBmPressed={isBmPressed}

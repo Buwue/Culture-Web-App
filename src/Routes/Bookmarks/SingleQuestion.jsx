@@ -26,12 +26,12 @@ import Background1 from "../../components/Background1"
 import { Switch } from "../../components/switch-07"
 import { LockIcon } from "../../components/icons/material-symbols-lock"
 import { AcademicCapSolidIcon } from "../../components/icons/heroicons-academic-cap-solid"
+import { getOptColor } from "../../lib/utils/helpers"
 
 function SingleQuestion({
   question,
   index,
   letterIcons,
-  getOptColor,
   allQuestions,
   userData,
 }) {
@@ -84,7 +84,13 @@ function SingleQuestion({
                   variant="outline"
                   className={cn(
                     "h-full w-full justify-start text-[#202153] transition-colors duration-300",
-                    getOptColor(chosenOpt, i, question.correct, displayCorr)
+                    getOptColor(
+                      chosenOpt,
+                      i,
+                      question.correct,
+                      displayCorr,
+                      false
+                    )
                   )}
                 >
                   <div className="transition-colors duration-300">

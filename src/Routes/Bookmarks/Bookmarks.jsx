@@ -52,28 +52,6 @@ const letterIcons = {
   3: <CircleLetterDIcon className="size-15 lg:size-32" />,
   4: <CircleLetterEIcon className="size-15 lg:size-32" />,
 }
-const getOptColor = (chosOpt, numOpt, corrOpt, displayCorr) => {
-  if (displayCorr) {
-    if (numOpt == corrOpt) {
-      return "text-green-500 pointer-events-none cursor-not-allowed"
-    }
-
-    if (chosOpt != null && chosOpt == numOpt) {
-      return "text-red-500 pointer-events-none cursor-not-allowed"
-    }
-
-    return "text-neutral-400 opacity-80 pointer-events-none cursor-not-allowed"
-  } else {
-    if (numOpt == chosOpt) {
-      return "text-amber-500"
-    }
-    return "text-[#202153]"
-  }
-
-  if (chosOpt == null) {
-    return "text-[#202153]"
-  }
-}
 
 function Bookmarks() {
   const { userId, userData } = useSession()
@@ -128,7 +106,6 @@ function Bookmarks() {
                       question={question}
                       index={index}
                       letterIcons={letterIcons}
-                      getOptColor={getOptColor}
                       allQuestions={allQuestions}
                       userData={userData}
                     />

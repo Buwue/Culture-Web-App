@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import CollapsibleChangelog from "../../components/shadcn-space/collapsible/collapsible-01"
 import {
   Collapsible,
@@ -27,6 +27,7 @@ import { BorderBeam } from "../../components/ui/border-beam"
 import { ShineBorder } from "../../components/ui/shine-border"
 import { Navigate, useLocation } from "react-router-dom"
 import { AnimatePresence, motion } from "motion/react"
+import { upsertExamProgress } from "../../lib/fetchHandler"
 
 const formatTime = (time) => {
   let minutes = Math.floor(time / 60)
@@ -43,27 +44,9 @@ const letterIcons = {
   3: <CircleLetterDIcon className="size-15 lg:size-32" />,
   4: <CircleLetterEIcon className="size-15 lg:size-32" />,
 }
-const getOptColor = (chosOpt, numOpt, corrOpt, isExamMode) => {
-  if (!isExamMode) {
-    if (numOpt == corrOpt) {
-      return "text-green-500 pointer-events-none cursor-not-allowed"
-    }
-
-    if (chosOpt == numOpt) {
-      return "text-red-500 pointer-events-none cursor-not-allowed"
-    }
-
-    return "text-neutral-400 opacity-80 pointer-events-none cursor-not-allowed"
-  } else {
-    if (numOpt == chosOpt) {
-      return "text-amber-500"
-    }
-    return "text-[#202153]"
-  }
-}
 
 function ExamResults() {
-  const { answer, allQuestions, examTimer } = useLocation().state
+  const { answer, allQuestions, examTimer, examId } = useLocation().state
 
   if (answer == null || allQuestions == null) {
     return <Navigate to="/" />
@@ -78,6 +61,8 @@ function ExamResults() {
       Object.keys(allQuestions).length
     )
   }
+
+  useEffect(() => upsertExamProgress(userId, noteCalculator), [])
 
   return (
     <AnimatePresence mode="wait">
@@ -159,7 +144,6 @@ function ExamResults() {
                     index={index}
                     answer={answer}
                     letterIcons={letterIcons}
-                    getOptColor={getOptColor}
                     allQuestions={allQuestions}
                   />
                 )

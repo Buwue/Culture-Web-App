@@ -34,8 +34,6 @@ function App() {
             </ProtectedRoute>
           }
         />
-        <Route path="/signin" element={<SigninPage />} />
-        <Route path="/signup" element={<SignupPage />} />
         <Route
           path="/examresults"
           element={
@@ -60,6 +58,8 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route path="/signin" element={<SigninPage />} />
+        <Route path="/signup" element={<SignupPage />} />
       </Routes>
       <Toaster />
     </>

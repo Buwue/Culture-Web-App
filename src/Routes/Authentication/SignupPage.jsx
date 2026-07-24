@@ -1,6 +1,6 @@
 import { SignupForm } from "../../components/signup-form"
 import { LoginForm } from "../../components/login-form"
-import { signUp } from "../../lib/authHandler"
+import { signInWithGoogle, signUp } from "../../lib/authHandler"
 import { useMutation } from "@tanstack/react-query"
 import { toast } from "sonner"
 import useSession from "../../hooks/useSession"
@@ -9,10 +9,15 @@ import { Navigate } from "react-router-dom"
 import { AnimatePresence, motion } from "motion/react"
 
 function SignupPage() {
-  const { mutate, isPending, error } = useMutation({
+  const { mutate, isPending: pendingEP } = useMutation({
     mutationFn: (values) => signUp(values.password, values.email),
     onError: (err) => toast.error(err.message),
     onSuccess: () => toast.success("User has been created."),
+  })
+
+  const { mutate: mutateGoogle, isPending: pendingG } = useMutation({
+    mutationFn: (values) => signInWithGoogle(),
+    onError: (err) => toast.error(err.message),
   })
 
   const onSubmit = (values) => {
@@ -46,7 +51,11 @@ function SignupPage() {
       ) : (
         <div className="flex min-h-svh flex-col items-center justify-center p-6 md:p-10">
           <div className="w-full max-w-sm md:max-w-4xl">
-            <SignupForm onSubmit={onSubmit} isPending={isPending} />
+            <SignupForm
+              onSubmit={onSubmit}
+              isPending={pendingEP || pendingEP}
+              mutateGoogle={mutateGoogle}
+            />
           </div>
         </div>
       )}

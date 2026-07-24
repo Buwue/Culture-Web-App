@@ -5,6 +5,8 @@ export const fetchExamNameId = async (allowableIds) => {
     .from("Exams")
     .select("id,Name")
     .in("id", allowableIds)
+    .order("id", { ascending: true })
+
   if (error) {
     throw new Error(error.message)
   }
@@ -102,13 +104,12 @@ export const upsertExamData = async (questions, examName) => {
 }
 
 export const fetchBookmarks = async (userId) => {
-  console.log("hi")
   const { data: bookmarkIds, error: bookmarkError } = await supabase
     .from("Users")
     .select("bookmarked")
     .eq("id", userId)
     .single()
-  console.log(bookmarkIds)
+
   if (bookmarkError) {
     throw new Error(bookmarkError.message)
   }
@@ -123,4 +124,29 @@ export const fetchBookmarks = async (userId) => {
   }
 
   return data
+}
+
+export const fetchExamProgress = async (userId) => {
+  const { data, error } = await supabase
+    .from("Users")
+    .select("examData")
+    .eq("id", userId)
+    .single()
+
+  if (error) {
+    throw new Error(error.message)
+  }
+
+  return data
+}
+
+export const upsertExamProgress = async (userId, examData) => {
+  const { error } = await supabase.from("Users").upsert({
+    id: userId,
+    examData: examData,
+  })
+
+  if (error) {
+    throw new Error(error.message)
+  }
 }

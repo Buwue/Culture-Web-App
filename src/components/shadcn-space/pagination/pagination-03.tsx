@@ -17,6 +17,7 @@ interface InteractiveJumpProps {
   activePage: number
   setActivePage: (page: number) => void
   setChosOpt: (page: any) => void
+  isBmPressed: (value: boolean) => void
 }
 export default function InteractiveJump({
   totalPages,
@@ -29,11 +30,11 @@ export default function InteractiveJump({
   const [inputValue, setInputValue] = React.useState(activePage.toString())
 
   const handlePageChange = (page: number) => {
-    const newPage = Math.max(0, Math.min(totalPages - 1, page))
+    const newPage = Math.max(1, Math.min(totalPages, page))
     if (activePage == newPage) {
       return
     }
-    setActivePage(newPage)
+    setActivePage(newPage - 1)
     setInputValue(newPage.toString())
     setIsEditing(false)
     setChosOpt(null)

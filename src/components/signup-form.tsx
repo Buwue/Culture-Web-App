@@ -17,6 +17,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useEffect } from "react"
 import { Spinner } from "./ui/spinner"
 import Background1 from "./Background1"
+import SmoothButton from "./smoothui/smooth-button"
 
 const formSchema = z
   .object({
@@ -29,7 +30,9 @@ const formSchema = z
       .regex(
         /[^A-Za-z0-9]/,
         "Password must contain at least one special character"
-      ),
+      )
+      .regex(/^\S*$/, "Password cannot contain spaces"),
+
     confirmPassword: z.string(),
     email: z.email("Please enter a valid email address"),
   })
@@ -42,6 +45,7 @@ export function SignupForm({
   onSubmit,
   isPending,
   className,
+  mutateGoogle,
   ...props
 }: React.ComponentProps<"div">) {
   const form = useForm<z.infer<typeof formSchema>>({
@@ -87,9 +91,7 @@ export function SignupForm({
                       {...field}
                       aria-invalid={fieldState.invalid}
                       id="email"
-                      type="email"
                       placeholder="m@example.com"
-                      required
                     />
                     <div className="min-h-[1.25rem]">
                       {!fieldState.invalid && (
@@ -119,7 +121,6 @@ export function SignupForm({
                           {...field}
                           id="password"
                           type="password"
-                          required
                         />
                         {fieldState.invalid && (
                           <FieldError errors={[fieldState.error]} />
@@ -149,7 +150,6 @@ export function SignupForm({
                             {...field}
                             id="confirm-password"
                             type="password"
-                            required
                           />
                           {fieldState.invalid && (
                             <FieldError errors={[fieldState.error]} />
@@ -161,16 +161,21 @@ export function SignupForm({
                 </Field>
               </Field>
               <Field>
-                <Button disabled={isPending} type="submit">
+                <SmoothButton
+                  disabled={isPending}
+                  type="submit"
+                  variant="outline"
+                  className={`h-[4dvh] lg:h-[5dvh] ${isPending ? "pointer-events-none cursor-not-allowed" : ""}`}
+                >
                   {isPending ? <Spinner size="5" /> : <></>}
                   Create Account
-                </Button>
+                </SmoothButton>
               </Field>
               <FieldSeparator className="*:data-[slot=field-separator-content]:bg-card">
                 Or continue with
               </FieldSeparator>
               <Field>
-                <Button variant="outline" type="button">
+                <Button variant="outline" type="button" onClick={mutateGoogle}>
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                     <path
                       d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"
