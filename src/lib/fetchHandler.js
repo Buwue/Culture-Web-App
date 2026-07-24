@@ -1,9 +1,9 @@
 import supabase from "./supabaseClient"
 
-export const fetchExamNameId = async (allowableIds) => {
+export const fetchExamData = async (allowableIds) => {
   const { data, error } = await supabase
     .from("Exams")
-    .select("id,Name")
+    .select("id,Name,Questions")
     .in("id", allowableIds)
     .order("id", { ascending: true })
 
@@ -14,6 +14,7 @@ export const fetchExamNameId = async (allowableIds) => {
   return {
     examNames: data.map((elt) => elt.Name),
     examIds: data.map((elt) => elt.id),
+    questions: data.map((elt) => elt.Questions),
   }
 }
 

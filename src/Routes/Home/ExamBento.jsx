@@ -1,6 +1,17 @@
 import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 import { CircularProgress } from "../../components/progress-10"
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "../../components/ui/alert-dialog"
 
 const colors = [
   "#222052",
@@ -49,6 +60,7 @@ export default function ExamBento({
   isExamMode,
   examIds,
   examData,
+  questions,
 }) {
   const [exams, setExams] = useState([])
   useEffect(() => {
@@ -56,6 +68,7 @@ export default function ExamBento({
       let index = Math.floor(Math.random() * colors.length)
       return {
         id: examIds[i],
+        questLen: questions[i].length,
         name: examName,
         color: colors[index],
         bordColor: bordColors[index],
@@ -67,26 +80,95 @@ export default function ExamBento({
   return (
     <div className="relative grid gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
       {exams.map((exam, index) => (
-        <Link
+        // <Link
+        //   key={index}
+        //   to={`/exam/${exam.id}`}
+        //   state={{ isExamMode: isExamMode, examName: exam.name }}
+        //   style={{
+        //     boxShadow: `0 0 0 2px ${exam.bordColor}, 0 4px 14px 0 ${exam.color}80`,
+        //     backgroundColor: exam.color,
+        //   }}
+        //   className={`group relative flex h-[10dvh] w-full overflow-hidden rounded-2xl shadow-lg transition-all duration-300 hover:scale-[1.02] lg:h-[14dvh]`}
+        // >
+        <div
           key={index}
-          to={`/exam/${exam.id}`}
-          state={{ isExamMode: isExamMode, examName: exam.name }}
           style={{
             boxShadow: `0 0 0 2px ${exam.bordColor}, 0 4px 14px 0 ${exam.color}80`,
             backgroundColor: exam.color,
           }}
-          className={`group relative flex h-[10dvh] w-full overflow-hidden rounded-2xl shadow-lg transition-all duration-300 hover:scale-[1.02] lg:h-[14dvh]`}
+          className="group relative flex h-[10dvh] w-full flex-row items-center overflow-hidden rounded-2xl p-3 text-white shadow-lg transition-all duration-300 hover:scale-[1.02] lg:h-[14dvh]"
         >
-          <div className="relative flex w-full flex-row items-center p-3 text-white">
-            <CircularProgress
-              size="50"
-              value={(examData[exam.id] * 100) / 20}
-              strokeWidth="5"
-              progressClassName="stroke-blue-500"
+          <AlertDialog>
+            <AlertDialogTrigger
+              nativeButton={false}
+              render={
+                <div className="flex h-full w-full flex-row items-center">
+                  <CircularProgress
+                    size="50"
+                    value={(examData[exam.id] * 100) / 20}
+                    strokeWidth="5"
+                    progressClassName="stroke-blue-500"
+                  />
+                  <h2 className="text-2xl leading-tight font-bold">
+                    {exam.name}
+                  </h2>
+                </div>
+              }
             />
-            <h2 className="text-2xl leading-tight font-bold">{exam.name}</h2>
-          </div>
-        </Link>
+            <AlertDialogContent
+              className={`ring ${isExamMode ? "ring-blue-500" : "ring-green-500"}`}
+            >
+              <AlertDialogHeader className="bg-[#FBF7F5]">
+                <AlertDialogTitle className="bg-[#FBF7F5] text-center">
+                  You're about to enter{" "}
+                  <span
+                    className={`underline underline-offset-3 decoration-[${exam.colorBord}]`}
+                  >
+                    {exam.name}
+                  </span>{" "}
+                  with <span className="font-bold">{exam.questLen}</span>{" "}
+                  questions.
+                </AlertDialogTitle>
+                <AlertDialogDescription className="text-center">
+                  You have chosen{" "}
+                  <span
+                    className={
+                      isExamMode
+                        ? "font-bold text-blue-500"
+                        : "font-bold text-green-500"
+                    }
+                  >
+                    {isExamMode ? "Exam" : "Entrainement"}
+                  </span>
+                  {isExamMode
+                    ? " Mode, meaning you'll be timed and unable to exit until completion."
+                    : " Mode, meaning you'll instantly see the answer upon answering."}
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter className="bg-[#FBF7F5]">
+                <AlertDialogCancel variant="outline">Cancel</AlertDialogCancel>
+                <AlertDialogAction
+                  variant={isExamMode ? "destructive" : "outline"}
+                  className={
+                    isExamMode
+                      ? ""
+                      : `bg-green-600 text-white hover:bg-green-700`
+                  }
+                >
+                  {" "}
+                  <Link
+                    key={index}
+                    to={`/exam/${exam.id}`}
+                    state={{ isExamMode: isExamMode, examName: exam.name }}
+                  >
+                    Continue
+                  </Link>
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+        </div>
+        // </Link>
       ))}
     </div>
   )

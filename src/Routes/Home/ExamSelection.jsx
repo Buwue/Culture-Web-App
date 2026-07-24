@@ -27,7 +27,7 @@ import { Spinner } from "@/components/ui/spinner"
 import { useMutation, useQuery } from "@tanstack/react-query"
 import {
   fetchAllQuestions,
-  fetchExamNameId,
+  fetchExamData,
   upsertExamData,
   upsertUserData,
 } from "../../lib/fetchHandler"
@@ -43,13 +43,13 @@ function ExamSelection() {
   const { userData } = useSession()
 
   const {
-    data: { examNames, examIds } = {},
+    data: { examNames, examIds, questions } = {},
     isLoading,
     error,
     refetch,
   } = useQuery({
     queryKey: ["exams"],
-    queryFn: () => fetchExamNameId(Object.keys(userData.examData)),
+    queryFn: () => fetchExamData(Object.keys(userData.examData)),
   })
 
   const { mutate: mutateRandomizer } = useMutation({
@@ -180,6 +180,7 @@ function ExamSelection() {
                       <ExamBento
                         examNames={examNames}
                         isExamMode={isExamMode}
+                        questions={questions}
                         examIds={examIds}
                         examData={userData.examData}
                       />

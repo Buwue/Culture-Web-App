@@ -25,11 +25,7 @@ import { SidebarNavigationSlimDemo } from "../../components/page"
 import { BookmarkIcon } from "lucide-react"
 import { Toggle } from "@/components/ui/toggle"
 import { useMutation, useQuery } from "@tanstack/react-query"
-import {
-  fetchExamNameId,
-  fetchExamQuestions,
-  upsertUserData,
-} from "../../lib/fetchHandler"
+import { fetchExamQuestions, upsertUserData } from "../../lib/fetchHandler"
 import { useLocation, useNavigate, useParams } from "react-router-dom"
 import { useContext, useEffect, useRef, useState } from "react"
 import LoadingPage from "../../components/LoadingPage"
@@ -199,7 +195,7 @@ function Window() {
                 <SmoothButton
                   disabled={isExamMode}
                   variant="outline"
-                  className="text-[#202153 min-w-0 justify-start text-sm font-medium whitespace-nowrap hover:text-foreground aria-expanded:text-foreground"
+                  className="min-w-0 justify-start text-sm font-medium whitespace-nowrap text-[#202153] hover:text-foreground aria-expanded:text-foreground"
                   onClick={() => {
                     navigate("/")
                   }}
